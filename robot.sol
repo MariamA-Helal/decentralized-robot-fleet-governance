@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract RobotAutomation {
@@ -23,10 +24,10 @@ contract RobotAutomation {
         bool isCompleted;
     }
 
-    mapping (Robot => uint) public robots;
-    mapping (address => uint) public taskToRobot; 
-    mapping (Task => uint) public tasks;
-    mapping (bool => uint) public taskCompleted;
+    mapping (uint => Robot) public robots;
+    mapping (uint => uint) public taskToRobot; 
+    mapping (uint => Task) public tasks;
+    mapping (uint => bool) public taskCompleted;
 
     // to make sure how calls a funtion is the real owner only
     modifier onlyOwner {
@@ -67,7 +68,7 @@ contract RobotAutomation {
         });
 
         // assign the task to a robot
-        taskToRobot[_taskId] = msg.sender;
+        taskToRobot[_taskId] = _robotID;
 
         // update its state isWorking = true
         robots[_robotID].isWorking = true;
